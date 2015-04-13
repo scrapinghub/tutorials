@@ -1,26 +1,36 @@
 # -*- coding: utf-8 -*-
 import scrapy
-from scrapy.contrib.spiders import CrawlSpider, Rule
+from scrapy.http import Request
+from scrapy.spider import Spider
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 from scrapy.selector import Selector
 
 from hn_scraper.items import HnArticleItem
 
 
-class HackernewsSpider(CrawlSpider):
+class HackernewsSpider(Spider):
     name = "HackerNews"
     allowed_domains = ["news.ycombinator.com"]
     start_urls = ('https://news.ycombinator.com/', )
-    rules = (Rule(SgmlLinkExtractor(allow=('news', ),
-                                    restrict_xpaths=('//a[text()="More"]', )),
-                  callback='parse_item',
-                  follow=True), )
+
+    link_extractor = SgmlLinkExtractor(allow=('news', ),
+                                       restrict_xpaths=('//a[text()="More"]', ))
 
     def extract_one(self, selector, xpath, default=None):
         extracted = selector.xpath(xpath).extract()
         if extracted:
             return extracted[0]
         return default
+
+    def parse(self, response):
+        for link in self.link_extractor.extract_links(response):
+            request = Request(url=link.url)
+            request.meta.update(link_text=link.text)
+            yield request
+
+        for item in self.parse_item(response):
+            yield item
+
 
     def parse_item(self, response):
         selector = Selector(response)
