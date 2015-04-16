@@ -13,8 +13,9 @@ class HackernewsSpider(Spider):
     allowed_domains = ["news.ycombinator.com"]
     start_urls = ('https://news.ycombinator.com/', )
 
-    link_extractor = SgmlLinkExtractor(allow=('news', ),
-                                       restrict_xpaths=('//a[text()="More"]', ))
+    link_extractor = SgmlLinkExtractor(
+        allow=('news', ),
+        restrict_xpaths=('//a[text()="More"]', ))
 
     def extract_one(self, selector, xpath, default=None):
         extracted = selector.xpath(xpath).extract()
@@ -30,7 +31,6 @@ class HackernewsSpider(Spider):
 
         for item in self.parse_item(response):
             yield item
-
 
     def parse_item(self, response):
         selector = Selector(response)

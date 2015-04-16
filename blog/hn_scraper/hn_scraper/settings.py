@@ -18,14 +18,15 @@ NEWSPIDER_MODULE = 'hn_scraper.spiders'
 #--------------------------------------------------------------------------
 SPIDER_MIDDLEWARES = {}
 DOWNLOADER_MIDDLEWARES = {}
-SPIDER_MIDDLEWARES.update(
-    {'frontera.contrib.scrapy.middlewares.schedulers.SchedulerSpiderMiddleware': 999},
-)
-DOWNLOADER_MIDDLEWARES.update(
-    {'frontera.contrib.scrapy.middlewares.schedulers.SchedulerDownloaderMiddleware': 999}
-)
+SPIDER_MIDDLEWARES.update({
+    'frontera.contrib.scrapy.middlewares.schedulers.SchedulerSpiderMiddleware': 999
+}, )
+DOWNLOADER_MIDDLEWARES.update({
+    'frontera.contrib.scrapy.middlewares.schedulers.SchedulerDownloaderMiddleware':
+    999
+})
 SCHEDULER = 'frontera.contrib.scrapy.schedulers.frontier.FronteraScheduler'
-FRONTERA_SETTINGS = 'hn_scraper.frontier_settings'
+FRONTERA_SETTINGS = 'hn_scraper.frontera_settings'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'hn_scraper (+http://www.yourdomain.com)'
