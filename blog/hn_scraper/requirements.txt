@@ -1,0 +1,17 @@
+Scrapy==0.24.5
+Twisted==15.1.0
+cffi==0.9.2
+cryptography==0.8.2
+cssselect==0.9.1
+enum34==1.0.4
+frontera==0.3.0.post.dev2
+lxml==3.4.3
+pyOpenSSL==0.15.1
+pyasn1==0.1.7
+pycparser==2.10
+queuelib==1.2.2
+six==1.9.0
+tldextract==1.6
+w3lib==1.11.0
+wsgiref==0.1.2
+zope.interface==4.1.2
